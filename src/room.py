@@ -14,22 +14,26 @@ class Room:
     def __str__(self):
         return f"{self.name}\n {self.description}"
 
-    def moveToRoom(self, directionOption):
+    def moveToRoom(self, directionOption, current_room):
         # If the user enters "q", quit the game.
         if(directionOption == 'q'):
             quit()
         elif(directionOption == 'n'):
+            print(f'\nYou are going north to the {current_room.n_to}\n')
             #move player to new room
-            print(self.n_to)
+            return current_room.n_to
             #  self.n_to
         elif(directionOption == 's'):
+            print(f'\nYou are going south to the {current_room.s_to}\n')
             #move player to new room
-            return self.s_to
+            return current_room.s_to
         elif(directionOption == 'e'):
-            return 'You are going east to ', self.n_to
+            print(f'\nYou are going east to the {current_room.e_to}\n')
+            return current_room.e_to
             #move player to new room
         elif(directionOption == 'w'):
-            return self.w_to
+            print(f'\nYou are going west to the {current_room.w_to}\n')
+            return current_room.w_to
             #move player to new room
         else:
             return None

@@ -43,32 +43,33 @@ playing = True
 current_room = room['outside']
 
 name = input('\nWhat is your name? ')
+
+# Make a new player object that is currently in the 'outside' room.
+## the current_room argument is connected to the room object from above that is why the room name and description declare in room.py get print out
+# room = {
+# 'outside':  Room("Outside Cave Entrance",
+#                 "North of you, the cave mount beckons"),
+# room['outside'] == Room object from room.py: gives us name and description that is printed out in room.py.
+# so player_1 has access to the room name and description
+
+player_1 = Player(name, current_room)  
+
+player_1.welcomeMessage(name)
+
 def StartGame():
-    Player.welcomeMessage(name)
-    # Make a new player object that is currently in the 'outside' room.
-    ## the current_room argument is connected to the room object from above that is why the room name and description declare in room.py get print out
-    # room = {
-    # 'outside':  Room("Outside Cave Entrance",
-    #                 "North of you, the cave mount beckons"),
-    # room['outside'] == Room object from room.py: gives us name and description that is printed out in room.py.
-    # so player_1 has access to the room name and description
-    player_1 = Player(name, current_room)  
-    print(player_1)
+    while playing == True:
+        print(f'\n{player_1.current_room}')
 
-    directionOption = input('\nWhere would you like to go? [n][s][e][w][q]\nHint: Type n for North, s for South, e for East, w for West, or type q for to quit.\n')
+        directionOption = input('\nWhere would you like to go? [n][s][e][w][q]\nHint: Type n for North, s for South, e for East, w for West, or type q for to quit.\n')
 
-    # make instance of room object
-    roomObj = Room(current_room.name, current_room.description)
-    # player moves to new room from current room
-    ## TODO: how do I change rooms
-    curr = roomObj.moveToRoom(directionOption)
-    print('Player_1 is moving to, ',curr)
-# * Waits for user input and decides what to do.
+        # make instance of room object
+        roomObj = Room(current_room.name, current_room.description)
+        # player moves to new room from current room
+        curr = roomObj.moveToRoom(directionOption, current_room)
+        ## change the current room of the player object
+        player_1.current_room = curr
 
-# while playing == True:
 StartGame()
-
-# Write a loop that:
 
  # * Prints the current description (the textwrap module might be useful here).
 #
