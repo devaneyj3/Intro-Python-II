@@ -13,3 +13,11 @@ class Player:
             welcomeMessage = (f'\nAt the king castle, {name} is summoned. The king tells you that you must save the princess from evil leperchauns. Will you embark on an adventure to find their lucky charms to save the princess. You leave the castle.\n')
             print(welcomeMessage)
             return name
+
+    def moveToRoom(self, directionOption):
+        # If the user enters "q", quit the game.
+        attribute = directionOption + '_to'
+        if hasattr(self.current_room, attribute): 
+            self.current_room = getattr(self.current_room, attribute)
+        else:
+            print('Choose another direction')   

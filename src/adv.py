@@ -40,8 +40,6 @@ room['treasure'].s_to = room['narrow']
 
 playing = True
 
-current_room = room['outside']
-
 name = input('\nWhat is your name? ')
 
 # Make a new player object that is currently in the 'outside' room.
@@ -52,7 +50,7 @@ name = input('\nWhat is your name? ')
 # room['outside'] == Room object from room.py: gives us name and description that is printed out in room.py.
 # so player_1 has access to the room name and description
 
-player_1 = Player(name, current_room)  
+player_1 = Player(name, room['outside'])  
 
 player_1.welcomeMessage(name)
 
@@ -61,14 +59,10 @@ def StartGame():
         print(f'\n{player_1.current_room}')
 
         directionOption = input('\nWhere would you like to go? [n][s][e][w][q]\nHint: Type n for North, s for South, e for East, w for West, or type q for to quit.\n')
-
-        # make instance of room object
-        roomObj = Room(current_room.name, current_room.description)
+        if(directionOption == 'q'):
+            quit()
         # player moves to new room from current room
-        curr = roomObj.moveToRoom(directionOption, current_room)
-        ## change the current room of the player object
-        player_1.current_room = curr
-
+        player_1.moveToRoom(directionOption)
 StartGame()
 
  # * Prints the current description (the textwrap module might be useful here).
