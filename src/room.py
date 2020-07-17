@@ -8,11 +8,12 @@ class Room:
         self.items = items
     
     def __str__(self):
+        roomTitle = 'current room'.upper()
         if len(self.items) < 1:
             itemMessage = "There are no items in the room"
         else:
-            itemMessage = "tems in the room:"
-        output = f"\t{self.name}\n \t {self.description}\n\n\t\t{itemMessage}\n "
+            itemMessage = "Items in the room:"
+        output = f"\t{roomTitle}\n\n\t{self.name}\n \t {self.description}\n\n\t\t{itemMessage}\n "
         for i, item in enumerate(self.items):
             output += f'\n\t{i + 1}: {str(item)}'
         return output
@@ -22,6 +23,5 @@ class Room:
         # print('Item in the remove_from_room func, room.py are: ', self.items)
         for item in self.items:
             self.items.remove(item)
-            print(item.name)
         # print('The passed in item in the remove_from_room func, room.py are: ', item.name)  
 

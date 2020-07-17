@@ -16,21 +16,20 @@ class Player:
             return name
 
     def moveToRoom(self, directionOption):
-        # If the user enters "q", quit the game.
         attribute = directionOption + '_to'
-        if directionOption == "i":
-            print(self.showInventory())
-        elif hasattr(self.current_room, attribute): 
+        if hasattr(self.current_room, attribute): 
             self.current_room = getattr(self.current_room, attribute)
         else:
-            print('Choose another direction') 
+            print(f'\n  Choose another direction\n') 
 
     def addToInventory(self, item):
-        print(f'You have added a {item.name} to your inventory')
         self.inventory.append(item)
         
     def showInventory(self):
-        inventoryMessage = f'\nYou have {len(self.inventory)} items in your inventory\n'
-        for index, item in enumerate(self.inventory):
-            inventoryMessage += f'\n\t{index + 1}: {item}\n'
-        print(inventoryMessage)
+        inventoryMessage = ''
+        if len(self.inventory) < 1:
+            inventoryMessage += f'\nYou don\'t have any items\n'
+        else:
+            for index, item in enumerate(self.inventory):
+                inventoryMessage += f'\nYour inventory consist of: \n\n  {index + 1}: {item}\n'
+        return inventoryMessage

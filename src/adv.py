@@ -78,8 +78,6 @@ def StartGame():
                 # print('player_1 in if takeItemoption is, ',player_room)
                 # add object to player inventory
                 player_1.addToInventory(item_obj)
-
-                print()
                 # remove object from roon
                 player_room.remove_from_room(items[itemIndex - 1].name)
                 # add object to player inventory
@@ -87,8 +85,11 @@ def StartGame():
         command = input('\nWhere would you like to go? [n][s][e][w][q][i]\nHint: Type n for North, s for South, e for East, w for West, q for to quit or i to view inventory.\n')
         if(command == 'q'):
             quit()
-        # player moves to new room from current room
-        player_1.moveToRoom(command)
+        elif command.lower() == "i" or command.lower() == "inventory":
+            print(player_1.showInventory())
+        else:
+            # player moves to new room from current room
+            player_1.moveToRoom(command)
 
 
 StartGame()
