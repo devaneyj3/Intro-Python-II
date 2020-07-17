@@ -1,26 +1,28 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                    "North of you, the cave mount beckons"),
+                    "North of you, the cave mount beckons", [ Item('hammer', 'kills enemies by 1/3 HP')]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", [ Item('staff', 'preforms magic'), Item('ladder', 'acceses another room')]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", [Item('gem', 'restore you HP')]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
 to north. The smell of gold permeates the air."""),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""", [Item('sword', 'kills enemies by half HP'), Item('lucky charms', ' is a leperchaun\'s favorite dish')])
 }
+
 
 
 # Link rooms together
@@ -55,14 +57,40 @@ player_1 = Player(name, room['outside'])
 player_1.welcomeMessage(name)
 
 def StartGame():
-    while playing == True:
-        print(f'\n{player_1.current_room}')
+    while playing == True: 
 
-        directionOption = input('\nWhere would you like to go? [n][s][e][w][q]\nHint: Type n for North, s for South, e for East, w for West, or type q for to quit.\n')
-        if(directionOption == 'q'):
+        # prints out the current room and items
+        player_room = Room(player_1.current_room.name, player_1.current_room.description, player_1.current_room.items)
+        print(f'{player_room}')
+
+        # If current room has items give option to take
+        items = player_1.current_room.items
+        # print(items)
+        if 0 < len(items):
+            takeItemOption = input(f'\nDo you want to take an item: \n')
+            if takeItemOption == 'y':
+                item = input(f'\nWhat item do you want to take: \n')
+                itemIndex = int(item)
+                # create new item object so we can use its method
+                item_obj = Item(items[itemIndex - 1].name, items[itemIndex -1].description)
+                # take item
+                item_obj.on_take()
+                # print('player_1 in if takeItemoption is, ',player_room)
+                # add object to player inventory
+                player_1.addToInventory(item_obj)
+
+                print()
+                # remove object from roon
+                player_room.remove_from_room(items[itemIndex - 1].name)
+                # add object to player inventory
+                
+        command = input('\nWhere would you like to go? [n][s][e][w][q][i]\nHint: Type n for North, s for South, e for East, w for West, q for to quit or i to view inventory.\n')
+        if(command == 'q'):
             quit()
         # player moves to new room from current room
-        player_1.moveToRoom(directionOption)
+        player_1.moveToRoom(command)
+
+
 StartGame()
 
  # * Prints the current description (the textwrap module might be useful here).
