@@ -10,6 +10,4 @@ class Item:
         return f"The {self.name}, it {self.description}."
 
     def on_take(self):
-        print(f'\nYou have picked up the {self.name}\n')
-
-    
+        print(f'\nYou have picked up the {self.name}\n')    

@@ -24,7 +24,7 @@ class Player:
 
     def addToInventory(self, item):
         self.inventory.append(item)
-        
+    
     def showInventory(self):
         inventoryMessage = ''
         if len(self.inventory) < 1:
@@ -33,3 +33,16 @@ class Player:
             for index, item in enumerate(self.inventory):
                 inventoryMessage += f'\nYour inventory consist of: \n\n  {index + 1}: {item}\n'
         return inventoryMessage
+
+    def removeFromInventory(self, item):
+        print(f'\nYou have dropped the {item}')
+        thing = ''
+        for thing in self.inventory:
+            # drop item from inventory
+            if thing.name == item:
+                print(f'This is in your inventory')
+                self.inventory.remove(thing)
+                return thing
+        return thing
+            
+        
