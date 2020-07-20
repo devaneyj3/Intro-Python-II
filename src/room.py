@@ -20,9 +20,7 @@ class Room:
     
 
     def remove_from_room(self, item):
-        # print('Item in the remove_from_room func, room.py are: ', self.items)
-        for item in self.items:
-            self.items.remove(item)
-        # print('The passed in item in the remove_from_room func, room.py are: ', item.name) 
+        self.items.remove(item)
+        
     def addToRoom(self, item):
         self.items.append(item)

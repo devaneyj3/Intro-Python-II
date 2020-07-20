@@ -27,11 +27,12 @@ class Player:
     
     def showInventory(self):
         inventoryMessage = ''
+        print(f'\n\tINVENTORY')
         if len(self.inventory) < 1:
             inventoryMessage += f'\nYou don\'t have any items\n'
         else:
             for index, item in enumerate(self.inventory):
-                inventoryMessage += f'\nYour inventory consist of: \n\n  {index + 1}: {item}\n'
+                inventoryMessage += f'\n  {index + 1}: {item}\n'
         return inventoryMessage
 
     def removeFromInventory(self, item):

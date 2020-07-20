@@ -65,42 +65,47 @@ def StartGame():
 
         # If current room has items give option to take
         items = player_1.current_room.items
-        if 0 < len(items):
-            takeItemOption = input(f'\nWhat to you want to do?\n')
-            command = takeItemOption.split()
-            if command[0] == 'get':
-                for item in items:
-                    if item.name == command[1]:
-                        # create new item object so we can use its method
-                        item_obj = Item(item.name, item.description)
-                        # take item
-                        item_obj.on_take()
-                        # add object to player inventory
-                        player_1.addToInventory(item_obj)
-                        # remove object from roon
-                        player_room.remove_from_room(item_obj)
-                    else:
-                        print('\nThe item is not in this room.\n')
-            elif command[0] == 'drop':
-                itemToDrop = command[1]
-                removedItem = player_1.removeFromInventory(itemToDrop)
-                # add dropped item to room
-                player_room.addToRoom(removedItem)
-                
-        command = input('\nWhere would you like to go? [n][s][e][w][q][i]\nHint: Type n for North, s for South, e for East, w for West, q for to quit or i to view inventory.\n')
-        if(command == 'q'):
+        takeItemOption = input(f'\nWhat to you want to do?\n')
+        command = takeItemOption.split()
+        if command[0] == 'get':
+            for item in items:
+                if item.name == command[1]:
+                    # create new item object so we can use its method
+                    item_obj = Item(item.name, item.description)
+                    # take item
+                    item_obj.on_take()
+                    # add object to player inventory
+                    player_1.addToInventory(item_obj)
+                    # remove object from room
+                    for item_obj in items:
+                        player_room.remove_from_room(item)
+                else:
+                    print('\nThe item is not in this room.\n')
+        elif command[0] == 'drop':
+            itemToDrop = command[1]
+            removedItem = player_1.removeFromInventory(itemToDrop)
+            # add dropped item to room
+            player_room.addToRoom(removedItem)
+        
+        elif(command[0] == 'q'):
             quit()
-        elif command.lower() == "i" or command.lower() == "inventory":
+        elif command[0] == 'h':
+                print(f'''\n
+                        [n] = North
+                        [s] = South
+                        [e] = East
+                        [w] = West
+                        [q] = Quit
+                        [i] = Inventory
+                        [get] [item] = Get an item(sword, staff, etc.) and add it to the inventory.
+                        [drop] [item] = Drop an item in your current room
+                        \n''')
+                continue 
+        elif command[0].lower() == "i" or command[0].lower() == "inventory":
             print(player_1.showInventory())
-        else:
-            # player moves to new room from current room
-            player_1.moveToRoom(command)
-
+    
+        else:# player moves to new room from current room
+            player_1.moveToRoom(command[0])
 
 StartGame()
 
- # * Prints the current description (the textwrap module might be useful here).
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
